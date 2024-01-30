@@ -1,0 +1,80 @@
+int buton = 12;
+int rastgele;
+
+void setup() {
+  pinMode(buton,INPUT);
+  for(int i = 2; i<=9;i++){
+    pinMode(i,OUTPUT);
+  }
+
+  randomSeed(analogRead(A0));
+  Serial.begin(9600);
+
+}
+
+void loop() {
+
+  rastgele = random(0,10);
+  
+
+  if(digitalRead(buton) == 1){
+    butonaBasildi(rastgele);
+    delay(50);
+  }
+
+
+
+
+}
+
+void butonaBasildi(int gelen){
+
+  for(int i = gelen; i>=0;i--){
+    sayi_sec(i);
+    delay(1000);
+  }
+  
+}
+
+
+void sayi_sec(int a){
+  switch(a){
+    case 0:
+      rakam_0();
+    break;
+
+    case 1:
+      rakam_1();
+    break;
+
+    case 2:
+      rakam_2();
+    break;
+
+    case 3:
+      rakam_3();
+    break;
+
+    case 4:
+      rakam_4();
+    break;
+
+    case 5:
+      rakam_5();
+    break;
+
+    case 6:
+      rakam_6();
+    break;
+
+    case 7:
+      rakam_7();
+    break;
+
+    case 8:
+      rakam_8();
+    break;
+
+    case 9:
+      rakam_9();
+    break;
