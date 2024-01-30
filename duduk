@@ -1,0 +1,81 @@
+  #define duduk 8
+  int nota[] ={262,294,330,349,392,440,494,523};
+ int sure=400;
+  void setup() {
+  pinMode(duduk ,OUTPUT);
+
+}
+
+void loop() {
+   tone(duduk,nota[0]);
+  delay(sure); 
+   tone(duduk,nota[0]);
+  delay(sure);
+     tone(duduk,nota[0]);
+  delay(sure);
+     tone(duduk,nota[0]);
+  delay(sure);
+     tone(duduk,nota[0]);
+  delay(sure);
+   tone(duduk,nota[7]);
+  delay(sure);
+     tone(duduk,nota[4]);
+  delay(sure);
+     tone(duduk,nota[7]);
+  delay(sure);
+     tone(duduk,nota[1]);
+  delay(sure);
+     tone(duduk,nota[2]);
+  delay(sure);
+
+
+   tone(duduk,nota[3]);
+  delay(sure); 
+   tone(duduk,nota[3]);
+  delay(sure);
+     tone(duduk,nota[1]);
+  delay(sure);
+     tone(duduk,nota[1]);
+  delay(sure);
+     tone(duduk,nota[2]);
+  delay(sure);
+   tone(duduk,nota[1]);
+  delay(sure);
+     tone(duduk,nota[0]);
+  delay(sure);
+    
+
+      tone(duduk,nota[3]);
+  delay(sure); 
+   tone(duduk,nota[3]);
+  delay(sure);
+     tone(duduk,nota[1]);
+  delay(sure);
+     tone(duduk,nota[1]);
+  delay(sure);
+     tone(duduk,nota[2]);
+  delay(sure);
+   tone(duduk,nota[2]);
+  delay(50);
+     tone(duduk,nota[0]);
+  delay(sure);
+   tone(duduk,nota[0]);
+  delay(sure);
+
+
+     tone(duduk,nota[3]);
+  delay(sure); 
+   tone(duduk,nota[3]);
+  delay(sure);
+     tone(duduk,nota[1]);
+  delay(sure);
+     tone(duduk,nota[1]);
+  delay(sure);
+     tone(duduk,nota[2]);
+  delay(sure);
+   tone(duduk,nota[2]);
+  delay(sure);
+     tone(duduk,nota[0]);
+  delay(sure);
+   tone(duduk,nota[0]);
+  delay(sure);
