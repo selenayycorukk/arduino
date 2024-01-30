@@ -1,0 +1,71 @@
+#include <LiquidCrystal.h>
+
+#include <Servo.h>
+
+#define yesilLed 9
+#define kirmiziLed 8 
+#define girisBtn 7
+#define cikisBtn 10
+#define servoPin 6
+
+Servo kapi;
+
+int kapasite=5;
+int rs = 12 , en =11 , d4 = 5 , d5 = 4 , d6 = 3, d7 = 2;
+ LiquidCrystal lcd(rs, en, d4, d5, d6, d7);
+
+void setup() {
+  lcd.begin(16,2);
+  //lcd.backlight();
+  Serial.begin(9600);
+  pinMode(yesilLed,OUTPUT);
+  pinMode(kirmiziLed,OUTPUT);
+  pinMode(girisBtn,1); // 1 basili
+  pinMode(cikisBtn,1); // 0 basili
+  kapi.attach(servoPin); // 0 kapi acık - 90 kapi kapalı
+  
+}
+
+void loop() {
+
+ if(kapasite==0){
+  //otopark dolu
+   digitalWrite(yesilLed,LOW);
+ digitalWrite(kirmiziLed,HIGH);
+ lcd.setCursor(0,0);
+ lcd.print("HOSGELDINIZ");
+ lcd.setCursor(0,1);
+ lcd.print("Otopark dolu");
+ }
+
+ else{
+  //otopark musait
+ digitalWrite(yesilLed,HIGH);
+ digitalWrite(kirmiziLed,LOW);
+ lcd.setCursor(0,0);
+ lcd.clear();
+ lcd.print("HOSGELDINIZ");
+ lcd.setCursor(0,1);
+ lcd.print((String)"Kapasitemiz: " +kapasite);
+   
+ }
+
+  if(digitalRead(girisBtn)==1){
+    if(kapasite !=0){
+    kapasite--;
+    kapi.write(0);
+    delay(2500);
+    kapi.write(90);
+    lcd.clear();
+    }
+  }
+    if(digitalRead(cikisBtn)==1){
+    if(kapasite < 5){
+    kapasite++;
+    kapi.write(0);
+    delay(2500);
+    kapi.write(90);
+    lcd.clear();
+    }
+  }
+}
