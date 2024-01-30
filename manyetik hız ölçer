@@ -1,0 +1,67 @@
+#include <LiquidCrystal.h>
+
+const int reedPin = 2; // Manyetik sensör
+const int ledPin = 13; // LED
+
+volatile int pulseCount = 0; // Manyetik alan değişimlerini saymak için sayaç değişkeni
+volatile unsigned long startTime; // İlk manyetik alan değişimini tespit etmek için zamanı saklamak için değişken
+volatile boolean measurementStarted = false; // Hız ölçümü yapmak için ölçümün başlamış olup olmadığını belirlemek için değişken
+
+// LCD ekranın RS, E, D4, D5, D6, D7 pinleri
+LiquidCrystal lcd(12, 11, 5, 4, 3, 6);
+
+void setup() {
+  Serial.begin(9600);
+  pinMode(reedPin, INPUT_PULLUP);
+  pinMode(ledPin, OUTPUT);
+
+  attachInterrupt(digitalPinToInterrupt(reedPin), countPulse, FALLING);
+
+  // LCD ekranın satır ve sütun sayısını belirle (8x2 ekran için 8 satır, 2 sütun)
+  lcd.begin(8, 2);
+  lcd.print("Hiz: ");
+}
+
+void measurementFunc() {
+
+}
+void loop() {
+
+  if (measurementStarted) {
+    // Manyetik alan değişimi algılandığında LED'i yak
+    digitalWrite(ledPin, HIGH);
+  } else {
+    // Manyetik alan değişimi yoksa LED'i kapat
+    digitalWrite(ledPin, LOW);
+  }
+}
+
+// Manyetik alan değişimi algılandığında kesme işlemi
+void countPulse() {
+  if (!measurementStarted) {
+    // İlk manyetik alan değişimi algılandığında zamanı kaydet
+    startTime = millis();
+    measurementStarted = true;
+  } else {
+    // Sonraki manyetik alan değişimlerinde zamanı kaydet ve hızı hesapla
+    unsigned long endTime = millis();
+    unsigned long elapsedTime = endTime - startTime;
+    float speed = pulseCount / (elapsedTime * 0.001); // Hızı dönüş/saniye birimine çevirme (ms to s)
+
+    // Hızı LCD ekrana yazdır
+    lcd.setCursor(0, 1); // İkinci satıra geç
+    lcd.print("      "); // Önceki hız değerini temizle
+    lcd.setCursor(0, 1); // İkinci satıra geç
+    lcd.print(speed); // Hızı ekrana yazdır
+
+    // Hızı Seri Monitöre yazdır
+    Serial.print("Hiz: ");
+    Serial.print(speed);
+    Serial.println(" dönüş/saniye");
+
+    // Sayaç ve ölçümü sıfırla
+    pulseCount = 0;
+    measurementStarted = false;
+  }
+  pulseCount++;
+}
